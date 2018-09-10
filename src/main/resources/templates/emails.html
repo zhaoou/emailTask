@@ -1,0 +1,50 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+	<title>Home Page</title>
+
+</head>
+
+<header></header>
+
+<body>
+
+
+
+<h1> Emails:</h1>
+
+
+<ul th:each =" fromEmail : ${fromEmails}">
+
+    <li th:text="${fromEmail.content}"> </li>
+    <a th:href="@{/delete/{id}(id=${fromEmail.fromId})}">delete</a>
+
+    <!--<a th:href="@{/delete/{id}(id=${email.id})}">delete</a>-->
+
+    <!--<a  th:href="@{/edit/{id}(id=${email.id})}">edit</a>-->
+
+
+
+</ul>
+
+<br>
+<br>
+<ul th:each =" toEmail : ${toEmails}">
+
+    <li th:text="${toEmail.content}"> </li>
+    <a th:href="@{/delete/{id}(id=${toEmail.toId})}">delete</a>
+
+    <!--<a th:href="@{/delete/{id}(id=${email.id})}">delete</a>-->
+
+    <!--<a  th:href="@{/edit/{id}(id=${email.id})}">edit</a>-->
+
+
+
+</ul>
+</body>
+
+<footer></footer>
+
+</html>

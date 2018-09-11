@@ -9,7 +9,8 @@
 
 	<ul th:each =" user : ${users}">
 
-		<li th:text="${user.name + ' - ' + user.emailAddress}"> </li>
+		<!--<li th:text="${user.name + ' - ' + user.emailAddress}"> </li>-->
+		<li th:text="${user.name}"> </li>
 		<a th:href="@{/email/{id}(id=${user.id})}">login</a>
 
 		<!--<a th:href="@{/delete/{id}(id=${email.id})}">delete</a>-->

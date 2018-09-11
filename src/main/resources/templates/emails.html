@@ -3,7 +3,7 @@
 
 <head>
 
-	<title>Home Page</title>
+    <title>Home Page</title>
 
 </head>
 
@@ -19,7 +19,7 @@
 <ul th:each =" fromEmail : ${fromEmails}">
 
     <li th:text="${fromEmail.content}"> </li>
-    <a th:href="@{/delete/{id}(id=${fromEmail.fromId})}">delete</a>
+    <a th:href="@{/delete/{id}(id=${fromEmail.id})}">delete</a>
 
     <!--<a th:href="@{/delete/{id}(id=${email.id})}">delete</a>-->
 
@@ -34,7 +34,7 @@
 <ul th:each =" toEmail : ${toEmails}">
 
     <li th:text="${toEmail.content}"> </li>
-    <a th:href="@{/delete/{id}(id=${toEmail.toId})}">delete</a>
+    <a th:href="@{/delete/{id}(id=${toEmail.id})}">delete</a>
 
     <!--<a th:href="@{/delete/{id}(id=${email.id})}">delete</a>-->
 
@@ -48,22 +48,25 @@
 
 <h1> Create New email:</h1>
 
-<form action="#" th:action="@{/add}" th:object="${email}" method="post">
+<form action="#" th:action="@{/send}" th:object="${email}" method="post">
 
-<label>mail content:</label>
 
-<!--<input type="text" th:field="*{content}" />-->
-    <input type="hidden" th:field="*{fromId}" value="${fromId}"/>
-    <input type="text" th:field="*{id}" value="${id}"/>
+    <input type="hidden" th:field="*{sentByUser}" />
 
-    <textarea  th:field="*{content}" th:inline="text"></textarea>
+    <label>mail title:</label>  <input type="text" th:field="*{title}" />
+    <br>
 
+    <label>mail to: </label> <input type="text" th:field="*{toUser}" />
+    <br>
+
+    <label>mail content: </label> <textarea  th:field="*{content}" th:inline="text"></textarea>
+    <br>
 
     <!--<select th:field="*{user}" th:remove="all-but-first">-->
-        <!--<option th:each="user : ${users}"-->
-                <!--th:value="${user.id}" th:text="${user.name}">Credit card</option></select>-->
+    <!--<option th:each="user : ${users}"-->
+    <!--th:value="${user.id}" th:text="${user.name}">Credit card</option></select>-->
 
-<input type="submit" value="Submit" />
+    <input type="submit" value="Submit" />
 
 </form>
 

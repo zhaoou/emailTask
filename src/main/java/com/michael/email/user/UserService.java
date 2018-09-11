@@ -1,9 +1,8 @@
-package com.michael.email.service;
+package com.michael.email.user;
 
-import com.michael.email.model.User;
-import com.michael.email.persistense.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,20 +17,20 @@ public class UserService {
 		return userRepo.findAll();
 	}
 	
-	public User save(User u) {
-		//Assert.notNull(q, "Quote cannot be null");
-		//Assert.notNull(q.getText(), "Quote content cannot be null");
+	public User creat(User u) {
+		Assert.notNull(u, "user cannot be null");
+		Assert.notNull(u.getName(),"userName content cannot be null");
 		return userRepo.saveAndFlush(u);
 		
 	}
 	
-	/*public void deleteById(Long id) {
+	public void deleteById(String id) {
 		userRepo.deleteById(id);
-	}*/
+	}
 	
-	public Optional<User> findById(String id) {
+	public User findById(String id) {
 		
-		return userRepo.findById(id);
+		return userRepo.findById(id).get();
 		 
 		//return userRepo.findOne(id);
 	}

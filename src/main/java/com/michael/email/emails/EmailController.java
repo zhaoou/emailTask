@@ -41,7 +41,7 @@ public class EmailController {
 	}
 
 	@GetMapping("/email/{id}")
-	public String findEmailsByUserId(@PathVariable("id") String id, Model model) {//userId
+	public String findEmailsByUserId(@PathVariable("id") String id, Model model) {// userId
 		model.addAttribute("fromEmails", emailService.findFromEmailsByUserId(id));
 		model.addAttribute("toEmails", emailService.findToEmailByUserId(id));
 		model.addAttribute("email", new Email(id,null,null));

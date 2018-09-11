@@ -43,6 +43,30 @@
 
 
 </ul>
+
+
+
+<h1> Create New email:</h1>
+
+<form action="#" th:action="@{/add}" th:object="${email}" method="post">
+
+<label>mail content:</label>
+
+<!--<input type="text" th:field="*{content}" />-->
+    <input type="hidden" th:field="*{fromId}" value="${fromId}"/>
+    <input type="text" th:field="*{id}" value="${id}"/>
+
+    <textarea  th:field="*{content}" th:inline="text"></textarea>
+
+
+    <!--<select th:field="*{user}" th:remove="all-but-first">-->
+        <!--<option th:each="user : ${users}"-->
+                <!--th:value="${user.id}" th:text="${user.name}">Credit card</option></select>-->
+
+<input type="submit" value="Submit" />
+
+</form>
+
 </body>
 
 <footer></footer>

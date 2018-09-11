@@ -23,6 +23,7 @@ public class Email {
 		this.fromId = fromId;
 		this.toId = toId;
 		this.content = content;
+		this.id = UUID.randomUUID().toString();
 	}
 
 	public String getId() {

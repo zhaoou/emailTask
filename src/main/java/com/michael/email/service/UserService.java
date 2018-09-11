@@ -27,12 +27,12 @@ public class UserService {
 	
 	/*public void deleteById(Long id) {
 		userRepo.deleteById(id);
-	}
+	}*/
 	
-	public Optional<User> findById(Long id) {
+	public Optional<User> findById(String id) {
 		
 		return userRepo.findById(id);
 		 
-		//return emailRepo.findOne(id);
-	}*/
+		//return userRepo.findOne(id);
+	}
 }

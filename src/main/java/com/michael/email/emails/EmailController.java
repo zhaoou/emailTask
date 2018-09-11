@@ -44,20 +44,22 @@ public class EmailController {
 	public String findEmailsByUserId(@PathVariable("id") String id, Model model) {//userId
 		model.addAttribute("fromEmails", emailService.findFromEmailsByUserId(id));
 		model.addAttribute("toEmails", emailService.findToEmailByUserId(id));
+		model.addAttribute("email", new Email(id,null,null));
 		return "emails";//the name of html
 	}
-
-
-	/*@GetMapping("/find")
-	public List<Quote> getAllQuota() {
-		return "quote";
-	}*/
 	
-	@PostMapping("/save")
-	public String saveQuote(Email email) {
-		emailService.save(email);
+	@PostMapping("/add")
+	public String addEmailToUser(Email email) {
+		//TODO email的id为什么过不来 ， form里怎么传多个对象，下拉框怎么放到form里传值
+		emailService.addEmailToUser(userService.findById(email.getFromId()),email);
 		return "redirect:/";
 	}
+
+//	@PostMapping("/add")
+//	public String addEmailToUser(Email email) {
+//		System.out.println("111");
+//		return "redirect:/";
+//	}
 	
 	@GetMapping("/delete/{id}")
 	public String deleteEmail(@PathVariable("id") String id) {

@@ -6,6 +6,7 @@ import java.util.Optional;
 import com.michael.email.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import com.michael.email.model.Email;
@@ -50,13 +51,13 @@ public class EmailService {
 
 	}
 
-	public Email addEmailToUser(User u, Email e){
+	public Email addEmailToUser(Optional<User> u, Email e){
 		Assert.notNull(u, "user cannot be null");
 		Assert.notNull(e, "email cannot be null");
-		Assert.notNull(u.getId(), "user must have persistent id");
+		Assert.notNull(u.get().getId(), "user must have persistent id");
 		Assert.notNull(e.getId(), "email must have persistent id");
-		u.getEmails().add(e);
-		e.setUser(u);
+		u.get().getEmails().add(e);
+		e.setUser(u.get());
 		return emailRepo.saveAndFlush(e);
 	}
 }

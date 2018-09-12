@@ -2,73 +2,147 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-
+    <div th:include="layout/style">style</div>
     <title>Home Page</title>
 
 </head>
 
 <header></header>
 
-<body>
+<body class="container">
+<script>
+
+     $(document).ready(function(){
+    $('select').formSelect();
+  });
+
+ $(document).ready(function(){
+    $('ul.tabs').tabs();
+  });
+</script>
+
+<div class="row">
+
+    <div class="col s12">
+        <ul class="tabs">
+            <li class="tab col s3"><a class="active" href="#inbox">Inbox</a></li>
+            <li class="tab col s3"><a  href="#outbox">OutBox</a></li>
+            <li class="tab col s3 "><a href="#send">SendMail</a></li>
+            <li class="tab col s3"><a href="#signout">SignOut</a></li>
+        </ul>
+    </div>
+
+    <div id="inbox" class="col s12 card-panel">
+        <!--<ul th:each =" toEmail : ${toEmails}">-->
+        <!--<li th:text="${toEmail.content}"> </li>-->
+        <!--<a th:href="@{/delete/{id}(id=${toEmail.id})}">delete</a>-->
+        <!--</ul>-->
+
+        <table  class="striped bordered">
+            <thead>
+            <tr>
+                <th>From</th>
+                <th>Title</th>
+                <th>Content</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="toEmail : ${toEmails}">
+                <td th:text="${{toEmail.sentByUser.name}}"></td>
+                <td th:text="${{toEmail.title}}"></td>
+                <td th:text="${{toEmail.content}}"></td>
+                <td></td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <div id="outbox" class="col s12 card-panel">
+        <table  class="striped bordered">
+            <thead>
+            <tr>
+                <th>To</th>
+                <th>Title</th>
+                <th>Content</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="fromEmail : ${fromEmails}">
+                <td th:text="${{fromEmail.toUser.name}}"></td>
+                <td th:text="${{fromEmail.title}}"></td>
+                <td th:text="${{fromEmail.content}}"></td>
+                <td><a th:href="@{/delete/{id}(id=${fromEmail.id})}">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <div id="send" class="row col s12 card-panel">
+        <form action="#" th:action="@{/send}" th:object="${email}" method="post" class="col s12">
+
+            <input type="hidden" th:field="*{sentByUser}" />
+
+            <div class="row ">
+                <div class="col s3">
+                    <div><h5>Title:</h5>
+                    </div>
+                    <div class="input-field">
+                        <input type="text" th:field="*{title}" />
+                        <!--<input id="title" th:field="*{title}" type="text" class="validate">-->
+                        <!--<label for="title">Title</label>-->
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s3">
+                    <div><h5>Send to:</h5>
+                    </div>
+                    <!--<label>Please Chose the User Sent to：</label>-->
+                    <div>
+                        <select class="form-control" name = "userId"  th:field="*{toUser}">
+                            <!--<option value="" disabled selected>Please Chose the User Sent to</option>-->
+                            <option  th:each="user:${users}" th:value="${user.id}" th:text="${user.name }"></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s12">
+                    <div><h5>Mail Content:</h5>
+                    </div>
+                    <div>
+                        <textarea  class="materialize-textarea" th:field="*{content}" ></textarea>
+                    </div>
+                </div>
+
+            </div>
+            <!--<input type="submit" value="Submit" />-->
+            <div class="row">
+                <div class="input-field col s12 center">
+                    <button class="btn waves-effect waves-light" type="submit" name="action">Send
+                        <i class="material-icons right">send</i>
+                    </button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+
+    <div id="signout" class="col s12">signout</div>
+
+
+</div>
 
 
 
-<h1> Emails:</h1>
 
 
-<ul th:each =" fromEmail : ${fromEmails}">
-
-    <li th:text="${fromEmail.content}"> </li>
-    <a th:href="@{/delete/{id}(id=${fromEmail.id})}">delete</a>
-
-    <!--<a th:href="@{/delete/{id}(id=${email.id})}">delete</a>-->
-
-    <!--<a  th:href="@{/edit/{id}(id=${email.id})}">edit</a>-->
-
-
-
-</ul>
-
-<br>
-<br>
-<ul th:each =" toEmail : ${toEmails}">
-
-    <li th:text="${toEmail.content}"> </li>
-    <a th:href="@{/delete/{id}(id=${toEmail.id})}">delete</a>
-
-    <!--<a th:href="@{/delete/{id}(id=${email.id})}">delete</a>-->
-
-    <!--<a  th:href="@{/edit/{id}(id=${email.id})}">edit</a>-->
-
-
-
-</ul>
-
-
-
-<h1> Create New email:</h1>
-
-<form action="#" th:action="@{/send}" th:object="${email}" method="post">
-
-
-    <input type="hidden" th:field="*{sentByUser}" />
-
-    <label>mail title:</label>  <input type="text" th:field="*{title}" />
-    <br>
-
-    <label>mail to: </label> <input type="text" th:field="*{toUser}" />
-    <br>
-
-    <label>mail content: </label> <textarea  th:field="*{content}" th:inline="text"></textarea>
-    <br>
-
-    <!--<select th:field="*{user}" th:remove="all-but-first">-->
-    <!--<option th:each="user : ${users}"-->
-    <!--th:value="${user.id}" th:text="${user.name}">Credit card</option></select>-->
-
-    <input type="submit" value="Submit" />
-
-</form>
 
 </body>
 

@@ -1,42 +1,37 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Email Task</title>
+	<title>Email Task</title>
+	<!--Import Google Icon Font-->
+	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<!--Import materialize.css-->
+	<link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+
+	<!--Let browser know website is optimized for mobile-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 
 <body>
-<h1>Welcome to the Quota Task</h1>
+<!--Import jQuery before materialize.js-->
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="js/materialize.min.js"></script>
 
-	<ul th:each =" user : ${users}">
+<h1>Welcome to the Email Task</h1>
 
-		<!--<li th:text="${user.name + ' - ' + user.emailAddress}"> </li>-->
-		<li th:text="${user.name}"> </li>
-		<a th:href="@{/email/{id}(id=${user.id})}">login</a>
+<!--<ul th:each =" user : ${users}">-->
+	<!--<li th:text="${user.name}"> </li>-->
+	<!--<a th:href="@{/email/{id}(id=${user.id})}">login</a>-->
+<!--</ul>-->
 
-		<!--<a th:href="@{/delete/{id}(id=${email.id})}">delete</a>-->
-
-		<!--<a  th:href="@{/edit/{id}(id=${email.id})}">edit</a>-->
-
-		
-
-	</ul>
-
-<!--<h1> Create New email:</h1>-->
-
-<!--<form action="#" th:action="@{/save}" th:object="${email}" method="post">-->
-
-	<!--<label>Text:</label>-->
-
-	<!--<input type="text" th:field="*{text}" />-->
-	<!--&lt;!&ndash;<input type="text" name="text" /> &ndash;&gt;-->
-	<!--<label>Author:</label>-->
-
-	<!--<input type="text" th:field="*{author}" />-->
-
-	<!--<input type="submit" value="Submit" />   -->
-
-<!--</form>-->
-
+<!--<select th:field="${user.id}" th:switch="${user.name}"-->
+<div>
+	<label>请选择登录用户：</label>
+	<select class="form-control" >
+		<option  th:each="user:${users}" th:value="${user.id}" th:text="${user.name }"></option>
+	</select>
+</div>
+<!--https://www.cnblogs.com/jiangchao226/p/5937458.html-->
+<!--<a th:href="@{/email/{id}(id=${user.id})}">login</a>-->
 
 </body>
 </html>

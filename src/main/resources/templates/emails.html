@@ -19,16 +19,35 @@
  $(document).ready(function(){
     $('ul.tabs').tabs();
   });
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.fixed-action-btn');
+    var instances = M.FloatingActionButton.init(elems, {
+      direction: 'left'
+    });
+  });
+
 </script>
 
 <div class="row">
 
     <div class="col s12">
+        <div class="fixed-action-btn horizontal">
+            <a class="btn-floating btn-large red">
+                <i class="large material-icons">menu</i>
+            </a>
+            <ul>
+                <li><a class="btn-floating green" href="/"><i class="material-icons">exit_to_app</i></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="col s12">
         <ul class="tabs">
-            <li class="tab col s3"><a class="active" href="#inbox">Inbox</a></li>
-            <li class="tab col s3"><a  href="#outbox">OutBox</a></li>
-            <li class="tab col s3 "><a href="#send">SendMail</a></li>
-            <li class="tab col s3"><a href="#signout">SignOut</a></li>
+            <li class="tab col s3"><a  href="#inbox"><h6 class="thick green-text bordered" >Inbox</h6></a></li>
+            <li class="tab col s3"><a  href="#outbox"><h6 class="thick green-text bordered" >OutBox</h6></a></li>
+            <li class="tab col s3 "><a href="#send"><h6 class="thick green-text bordered" >SendMail</h6></a></li>
+            <li class="tab col s3"><a class="active" href="#graphic"><h6 class="thick green-text bordered" >Graphic</h6></a></li>
         </ul>
     </div>
 
@@ -134,7 +153,17 @@
     </div>
 
 
-    <div id="signout" class="col s12">signout</div>
+    <div id="graphic" class="row col s12 card-panel">
+        <p id="user_Id" class="white-text" th:text="${user.id}"></p>
+        <h5 class="thin green-text"  th:text="|${user.name}'s sentiment trends (email)| ">Sentiment trends (email)</h5>
+        <div id="email_sentiment_chart_spinner" >
+            <div th:include="layout/spinner"></div>
+            <h2 class="center-align thin">Loading emails</h2>
+        </div>
+        <canvas id="emailSent"></canvas>
+        <script src="/assets/js/email_chart.js"></script>
+
+    </div>
 
 
 </div>

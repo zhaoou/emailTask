@@ -1,13 +1,15 @@
-package com.michael.email.email;
+package com.michael.email.core.email;
 
-import com.michael.email.user.User;
+import com.michael.email.core.user.User;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 // many side is always the owner
 // update the owner after change
@@ -15,6 +17,7 @@ import java.util.UUID;
 @Getter
 @Accessors(chain = true)
 @Entity
+@ToString(exclude = {"sentByUser", "toUser"})
 public class Email {
 
 	@Id
@@ -23,10 +26,12 @@ public class Email {
 	String title;
 
 	@ManyToOne
+	@JsonIgnore
 	User sentByUser;
 
 	//unidirectional: entity with Annotation is always the owner.
 	@OneToOne
+	@JsonIgnore
 	User toUser;
 
 

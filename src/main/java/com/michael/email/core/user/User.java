@@ -1,7 +1,7 @@
-package com.michael.email.user;
+package com.michael.email.core.user;
 
 
-import com.michael.email.email.Email;
+import com.michael.email.core.email.Email;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

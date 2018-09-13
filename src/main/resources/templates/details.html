@@ -1,0 +1,87 @@
+<html layout:decorator="layout/base">
+<html xmlns:th="http://www.thymeleaf.org">
+<section layout:fragment="content">
+
+
+
+	<div class="row">
+		<div class="col s12">
+			<div class="card white">
+			
+				<div class="card-content black-text white">
+					<span class="card-title "></span>
+					
+					<div class="row">
+					
+					
+						<div class="col s2" >		
+						
+							 <div class="card">
+					            <div class="card-image">
+									<img th:src="${profile.gravatarUrl()}"/>
+					            </div>
+					  
+					       
+					          </div>
+					          <blockquote>
+					             	<div class="" th:text="|Average: ${#numbers.formatDecimal(profile.sentimentStats().getAverage(), 1, 2)}|"></div>
+					           		<div class="" th:text="|Min: ${#numbers.formatDecimal(profile.sentimentStats().getMin(), 1, 2)}|"></div>
+					             	<div class="" th:text="|Max: ${#numbers.formatDecimal(profile.sentimentStats().getMax(), 1, 2)}|"></div>			             				
+				              </blockquote>
+					          
+					          	
+					          <p id="profile_id" class="white-text" th:text="${profile.id}">Card Title</p>
+					          
+						</div>
+						
+						<div class="col s3">
+							 <div class="row">
+						            
+									
+										<div class="col s12 " >
+											<p class="bold" th:text="${profile.firstName}">Card Title</p>
+						        			<p class="bold" th:text="${profile.lastName}">Card Title</p>
+											<div class="thin" th:text="|Email: ${profile.email}|"></div>
+											<div class="thin" th:text="|Gender: ${profile.gender} (${profile.genderSure}% sure)|"></div>
+											<div class="thin" 
+												th:if="${! #sets.isEmpty(profile.emails)}"
+											th:text="|Active since: ${#dates.format(new java.util.Date(profile.emails[0].sent * 1000), 'dd-MMM-yy')}|"></div>
+				             				<div class="thin" 
+				             					th:if="${! #sets.isEmpty(profile.emails)}"
+				             				th:text="|Last active: ${#dates.format(new java.util.Date(profile.emails[profile.emails.size()-1].sent * 1000), 'dd-MMM-yy')}|"></div>
+				             				
+				              			</div> 
+	              				</div>
+						</div>
+              		
+              			<div class="col s7">
+              			
+              				<h5 class="thin green-text"  th:text="|${profile.firstName}'s sentiment trends (email)| ">Sentiment trends (email)</h5>
+              				
+              				
+              				<div id="email_sentiment_chart_spinner" >
+			              		<div th:include="layout/spinner"></div>
+			                	<h2 class="center-align thin">Loading emails</h2>
+			              	</div>
+			              	
+              			  	<canvas id="emailSent"></canvas>
+              			  	
+							<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
+							<script src="/assets/js/profile/email_chart.js"></script>
+              			
+              				
+              			
+              			</div>
+              		
+              		</div>
+              		
+              		
+				</div>
+				
+			</div>
+		</div>
+
+
+	</div>
+</section>
+</html>

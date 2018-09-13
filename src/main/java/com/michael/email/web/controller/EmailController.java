@@ -1,10 +1,10 @@
-package com.michael.email.controller;
+package com.michael.email.web.controller;
 
 
-import com.michael.email.email.Email;
-import com.michael.email.email.EmailService;
-import com.michael.email.user.User;
-import com.michael.email.user.UserService;
+import com.michael.email.core.email.Email;
+import com.michael.email.core.email.EmailService;
+import com.michael.email.core.user.User;
+import com.michael.email.core.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,7 +38,6 @@ public class EmailController {
 
     @PostMapping("/email")
     public String findEmailsByUserId(@RequestParam(value="userId") String id, Model model) {// userId
-        System.out.println("userId is "+id);
         model.addAttribute("fromEmails", userService.findById(id).getSentEmails());
         model.addAttribute("toEmails", emailService.findEmailsSentTo(userService.findById(id)));
         ////model.addAttribute("email", new Email(id,null,null));

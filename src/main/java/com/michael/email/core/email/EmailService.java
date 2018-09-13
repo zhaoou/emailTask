@@ -1,6 +1,6 @@
-package com.michael.email.email;
+package com.michael.email.core.email;
 
-import com.michael.email.user.User;
+import com.michael.email.core.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;

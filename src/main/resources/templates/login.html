@@ -30,7 +30,7 @@
 		<div  class="row col s12 ">
 			<div class="col s5" ></div>
 			<div class="col s2 center" >
-				<select name = "userId" class="center">
+				<select  name = "userId" class="browser-default">
 					<option   th:each="user:${users}" th:value="${user.id}" th:text="${user.name }"></option>
 				</select>
 			</div>

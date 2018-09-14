@@ -8,9 +8,7 @@ import lombok.ToString;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Setter
 @Getter
@@ -24,7 +22,7 @@ public class User {
 	String name;
 
 	@OneToMany(mappedBy="sentByUser", fetch=FetchType.EAGER)
-	Set<Email> sentEmails = new HashSet<>();
+	List<Email> sentEmails = new ArrayList<>();
 
 	@PrePersist
 	void init() {

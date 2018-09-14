@@ -42,12 +42,12 @@
         </div>
     </div>
 
-    <div class="col s12">
+    <div class="col s12 card-panel">
         <ul class="tabs">
             <li class="tab col s3"><a  href="#inbox"><h6 class="thick green-text bordered" >Inbox</h6></a></li>
             <li class="tab col s3"><a  href="#outbox"><h6 class="thick green-text bordered" >OutBox</h6></a></li>
-            <li class="tab col s3 "><a href="#send"><h6 class="thick green-text bordered" >SendMail</h6></a></li>
-            <li class="tab col s3"><a class="active" href="#graphic"><h6 class="thick green-text bordered" >Graphic</h6></a></li>
+            <li class="tab col s3 "><a class="active" href="#send"><h6 class="thick green-text bordered" >SendMail</h6></a></li>
+            <li class="tab col s3"><a  href="#graphic"><h6 class="thick green-text bordered" >Graphic</h6></a></li>
         </ul>
     </div>
 
@@ -106,7 +106,8 @@
             <input type="hidden" th:field="*{sentByUser}" />
 
             <div class="row ">
-                <div class="col s3">
+                <div class="col s2"></div>
+                <div class="col s2">
                     <div><h5>Title:</h5>
                     </div>
                     <div class="input-field">
@@ -115,9 +116,11 @@
                         <!--<label for="title">Title</label>-->
                     </div>
                 </div>
+                <div class="col s8"></div>
             </div>
             <div class="row">
-                <div class="col s3">
+                <div class="col s2"></div>
+                <div class="col s2">
                     <div><h5>Send to:</h5>
                     </div>
                     <!--<label>Please Chose the User Sent to：</label>-->
@@ -128,10 +131,12 @@
                         </select>
                     </div>
                 </div>
+                <div class="col s8"></div>
             </div>
 
             <div class="row">
-                <div class="input-field col s12">
+                <div class="col s2"></div>
+                <div class="input-field col s10">
                     <div><h5>Mail Content:</h5>
                     </div>
                     <div>
@@ -155,7 +160,7 @@
 
     <div id="graphic" class="row col s12 card-panel">
         <p id="user_Id" class="white-text" th:text="${user.id}"></p>
-        <h5 class="thin green-text"  th:text="|${user.name}'s sentiment trends (email)| ">Sentiment trends (email)</h5>
+        <h5 class="thin green-text"  th:text="|${user.name}'s email trends| ">email trends</h5>
         <div id="email_sentiment_chart_spinner" >
             <div th:include="layout/spinner"></div>
             <h2 class="center-align thin">Loading emails</h2>

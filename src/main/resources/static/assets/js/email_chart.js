@@ -23,64 +23,102 @@
 			  },
 			draw : function(){
 		      
-		      function createGraph(dates, sents) {
+		      function createGraph(times, counts) {
 		        var ctx = document.getElementById('emailSent').getContext('2d');
 		        var gradient = ctx.createLinearGradient(0,0,0,483);
 		        gradient.addColorStop(0.2, 'rgba(0,255,0, 0.8)');
 		        gradient.addColorStop(0.5, 'rgba(70, 70, 150, 0.7)');
 		        gradient.addColorStop(0.8, 'rgba(255, 0, 0, 0.8)');
-		        var chartElement = new Chart(ctx, {
+		        /*var chartElement = new Chart(ctx, {
 		          type: 'line',
 		          data: {
-		            labels: dates,
+		            labels: times,
 		            datasets: [{
 		            	
 		              pointHoverBackgroundColor: "white",
 		              fill: true,
 		              pointHoverRadius: 10,
 		              showLine: true, // no line shown
-		              pointRadius: (dates.length > 50) ? 2 : 6,
+		              pointRadius: (times.length > 50) ? 2 : 6,
 		              backgroundColor: gradient,
 		            //  pointBackgroundColor: "red",
 
-		              data: sents,
+		              data: counts,
 		              lineTension: undefined,
 		            }]
 		          },
-		          options: {
-		        	  
-		         	 onClick:  function(e, array){
-		         		 let index = array[0]._index;
-		         		// console.log("/video/"+jsonData.emails[index].id);
-		         		 window.location.href="/email/"+jsonData.emails[index].id;
-		               },
-		           
-		               responsive: true,
-		               legend: { display: false },
-		               layout: {
-		 	              padding: 20 },
-		               elements: {
-		                   point: { pointStyle: "circle" } },
-		               scales: {
-		                       xAxes: [{
-		                     	  display: false
-		                       }],
-		 	                  yAxes: [{
-		 	                	  display: true
-		 	                  }]
-		                   }
-		           }
-		        })
+
+                   options: {
+                   				responsive: true,
+                   				title: {
+                   					display: true,
+                   					text: ''
+                   				},
+                   				tooltips: {
+                   					mode: 'index',
+                   					intersect: false,
+                   				},
+                   				hover: {
+                   					mode: 'nearest',
+                   					intersect: true
+                   				},
+                   				scales: {
+                   					xAxes: [{
+                   						display: true,
+                   						scaleLabel: {
+                   							display: true,
+                   							labelString: 'Minute'
+                   						}
+                   					}],
+                   					yAxes: [{
+                   						display: true,
+                   						scaleLabel: {
+                   							display: true,
+                   							labelString: 'Counts'
+                   						}
+                   					}]
+                   				}
+                   			}
+
+
+		        })*/
+
+                var chartElement = new Chart(ctx, {
+                type: 'line',
+               data: {
+               		            labels: times,
+               		            datasets: [{
+                                               label: 'Emails DataSet',
+               		                           backgroundColor: [
+                                                   'rgba(255, 99, 132, 0.2)',
+                                                   'rgba(54, 162, 235, 0.2)',
+                                                   'rgba(255, 206, 86, 0.2)',
+                                                   'rgba(75, 192, 192, 0.2)',
+                                                   'rgba(153, 102, 255, 0.2)',
+                                                   'rgba(255, 159, 64, 0.2)'
+                                               ],
+                                               borderColor: [
+                                                   'rgba(255,99,132,1)',
+                                                   'rgba(54, 162, 235, 1)',
+                                                   'rgba(255, 206, 86, 1)',
+                                                   'rgba(75, 192, 192, 1)',
+                                                   'rgba(153, 102, 255, 1)',
+                                                   'rgba(255, 159, 64, 1)'
+                                               ],
+                                  fill: false,
+               		              data: counts,
+
+               		            }]
+               		          }
+                         })
+
+
 		        return chartElement;
 		      }
+		      var times = jsonData.map(e => e.createdTime);
+		      var counts = jsonData.map(e => e.countInSameMinute);
 
-		      var dates = jsonData.emails
-		        .map(e => new Date(e.sent * 1000).toDateString());
-		      var sents = jsonData.emails.map(e => {
-		    	  return e.text.sentiment.toFixed(2);
-		      });
-		      
-		      createGraph(dates, sents)
+		      createGraph(times, counts)
 		      }
       
 
@@ -89,4 +127,40 @@
     
 	window.addEventListener("load",  () => emails.getData() );
 
-  
+//  var ctx = document.getElementById('emailSent').getContext('2d');
+//  var myChart = new Chart(ctx, {
+//      type: 'bar',
+//      data: {
+//          labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+//          datasets: [{
+//              label: '# of Votes',
+//              data: [12, 19, 3, 5, 2, 3],
+//              backgroundColor: [
+//                  'rgba(255, 99, 132, 0.2)',
+//                  'rgba(54, 162, 235, 0.2)',
+//                  'rgba(255, 206, 86, 0.2)',
+//                  'rgba(75, 192, 192, 0.2)',
+//                  'rgba(153, 102, 255, 0.2)',
+//                  'rgba(255, 159, 64, 0.2)'
+//              ],
+//              borderColor: [
+//                  'rgba(255,99,132,1)',
+//                  'rgba(54, 162, 235, 1)',
+//                  'rgba(255, 206, 86, 1)',
+//                  'rgba(75, 192, 192, 1)',
+//                  'rgba(153, 102, 255, 1)',
+//                  'rgba(255, 159, 64, 1)'
+//              ],
+//              borderWidth: 1
+//          }]
+//      },
+//      options: {
+//          scales: {
+//              yAxes: [{
+//                  ticks: {
+//                      beginAtZero:true
+//                  }
+//              }]
+//          }
+//      }
+//  });

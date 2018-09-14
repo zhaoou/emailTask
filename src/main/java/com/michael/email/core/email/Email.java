@@ -7,6 +7,7 @@ import lombok.ToString;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
+import java.time.ZonedDateTime;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -24,6 +25,8 @@ public class Email {
 	String id;
 	String content;
 	String title;
+	public long createdTime;
+	int countInSameMinute;
 
 	@ManyToOne
 	@JsonIgnore
@@ -35,9 +38,11 @@ public class Email {
 	User toUser;
 
 
+
 	@PrePersist
 	void init() {
 		this.id = UUID.randomUUID().toString();
+		createdTime = ZonedDateTime.now().getMinute();
 	}
 
 
